@@ -2,7 +2,7 @@ import time
 import hashlib
 from urllib.parse import quote, unquote
 import urllib.request
-import selenium.webdriver.chrome.options
+import selenium.webdriver.firefox.options
 import selenium.webdriver.support.wait
 import selenium.common
 import PyQt5.QtCore
@@ -13,11 +13,11 @@ import api
 def _get_cookies(name):
         failed = (0, 0)
 
-        options = selenium.webdriver.chrome.options.Options()
+        options = selenium.webdriver.firefox.options.Options()
         options.add_argument('-headless')
-        driver = selenium.webdriver.Chrome(executable_path='chromedriver',
-                                           chrome_options=options)
-        # http://chromedriver.storage.googleapis.com/index.html
+        driver = selenium.webdriver.Firefox(executable_path='geckodriver',
+                                            firefox_options=options)
+        # https://github.com/mozilla/geckodriver/releases
         selenium.webdriver.support.wait.WebDriverWait(driver, timeout=10)
         driver.get('http://wuxia.qq.com/comm-htdocs/pay/new_index.htm?t=wuxia')
         driver.switch_to.frame('__LoginIframe__')
@@ -29,6 +29,7 @@ def _get_cookies(name):
                 return failed
         openid = login.get_attribute('uin')
         login.click()
+        # driver.find_element_by_id('img_out_2295122015').click()
         time.sleep(1)  # wait 1 seconds, if cannot get cookie, try bigger number
         cookie = driver.get_cookie(name)['value']
         driver.quit()
