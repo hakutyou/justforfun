@@ -1,0 +1,1 @@
+pyinstaller -F --onefile main.pyw --hidden-import PyQt5.sip --noconsole -i main.ico
