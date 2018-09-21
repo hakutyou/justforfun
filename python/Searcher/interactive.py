@@ -17,9 +17,6 @@ class Interactive(PyQt5.QtCore.QObject):
         def _basename(filename):
                 return os.path.splitext(filename)[0]
 
-        def tuple_transform(self, lst):
-                return list(map(lambda x: (self._basename(x), x), lst))
-
         @PyQt5.QtCore.pyqtSlot(str)
         def output(self, string):
                 print(string)
@@ -27,8 +24,7 @@ class Interactive(PyQt5.QtCore.QObject):
         @PyQt5.QtCore.pyqtSlot(str, result=list)
         def finder(self, find_string):
                 lst = self.search.fuzzy_finder(find_string)
-                tup = self.tuple_transform(lst)
-                return list(map(lambda x: {'name': x[0], 'path': x[1]}, tup))
+                return list(map(lambda x: {'name': self._basename(x), 'path': x}, lst))
 
         @PyQt5.QtCore.pyqtSlot(str, result=str)
         def reader(self, path):
