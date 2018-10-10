@@ -12,28 +12,26 @@ Rectangle {
                 width: parent.width
                 height: parent.height
                 Text {
+                    id: resultName
                     x: 10
-                    width: parent.width - 20
+                    width: (parent.width - 20) / 4
                     height: parent.height
                     horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
-                    text: role_name
+                    text: name
                     font.family: main.font_family
                     font.pixelSize: main.small_font_size
                     clip: true
                 }
                 Text {
-                    x: 10
-                    anchors.left: parent.left
-                    width: parent.width - 10
+                    x: 10 + resultName.width
+                    width: (parent.width - 20) / 4 * 3
                     height: parent.height
-                    horizontalAlignment: Text.AlignRight
+                    horizontalAlignment: Text.AlignLeft
                     verticalAlignment: Text.AlignVCenter
-                    text: role_id
+                    text: value
                     font.family: main.font_family
-                    font.pixelSize: main.tiny_font_size
-                    font.italic: true
-                    color: "grey"
+                    font.pixelSize: main.small_font_size
                     clip: true
                 }
             }
@@ -45,12 +43,5 @@ Rectangle {
         model: resultList
         delegate: resultComponent
         focus: true
-    }
-    ListModel {
-            id: resultList
-    }
-    function output_get(text, zone) {
-        resultList.clear()
-        resultList.append(con.get_role(text, zone))
     }
 }

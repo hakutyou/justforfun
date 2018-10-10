@@ -8,18 +8,18 @@
 #include <math.h>
 #include <malloc.h>
 #include <windows.h>
-//¸ßË¹ÏûÈ¥·¨½âÏßÐÔ·½³Ì×é:
-void Gauss(double *A,double *b,int n){//·½³ÌAx=bµÄ½â£¬AÎªn*n¾ØÕó
+//é«˜æ–¯æ¶ˆåŽ»æ³•è§£çº¿æ€§æ–¹ç¨‹ç»„:
+void Gauss(double *A,double *b,int n){//æ–¹ç¨‹Ax=bçš„è§£ï¼ŒAä¸ºn*nçŸ©é˜µ
 	int i,j,k,s,u,v,temp;
-	double w, t,*x;//xÎª½â
+	double w, t,*x;//xä¸ºè§£
 	x = (double *)malloc(n*sizeof(double));
 
 	temp = 0;
-	for(k=1;k<n;k++){//ÅÐ¶ÏµÚiÁÐµÄ×î´óÖµ
+	for(k=1;k<n;k++){//åˆ¤æ–­ç¬¬iåˆ—çš„æœ€å¤§å€¼
 		if(fabs(A[n*temp])<fabs(A[k*n]))
 			temp = k;
 	}
-	if(temp!=0){//µÚiÐÐÓë×î´óÐÐ½»»»
+	if(temp!=0){//ç¬¬iè¡Œä¸Žæœ€å¤§è¡Œäº¤æ¢
 		for(k=0;k<n;k++){
 			t = A[k];
 			A[k] = A[temp*n+k];
@@ -30,15 +30,15 @@ void Gauss(double *A,double *b,int n){//·½³ÌAx=bµÄ½â£¬AÎªn*n¾ØÕó
 		b[0] = t;
 	}
 
-	for(i=0;i<n-1;i++){//½«¾ØÕó±äÎªÉÏÈý½Ç¾ØÕó
-		for(j=i+1;j<n;j++){//½øÐÐÐÐ±ä»»
+	for(i=0;i<n-1;i++){//å°†çŸ©é˜µå˜ä¸ºä¸Šä¸‰è§’çŸ©é˜µ
+		for(j=i+1;j<n;j++){//è¿›è¡Œè¡Œå˜æ¢
 			w = A[j*n+i]/A[i*n+i];
 			for(k=i;k<n;k++)
 				A[j*n+k] -= A[i*n+k]*w;
 			b[j] -= b[i]*w; 		
 		}
 	}
-	//Çó½â:
+	//æ±‚è§£:
 	x[n-1] = b[n-1]/A[(n-1)*n+n-1];
 	for(k=n-2;k>=0;k--){
 		x[k] = b[k];
@@ -54,14 +54,14 @@ void Gauss(double *A,double *b,int n){//·½³ÌAx=bµÄ½â£¬AÎªn*n¾ØÕó
 void main(){
 	double *A ,*b;
 	int n,i;
-	printf("¾ØÕóµÄ½×:");
+	printf("çŸ©é˜µçš„é˜¶:");
 	scanf("%d",&n);
 	A = (double *)malloc(n*n*sizeof(double));
 	b = (double *)malloc(n*sizeof(double));
-	printf("AµÄÖµ:");
+	printf("Açš„å€¼:");
 	for(i=0;i<n*n;i++)
 		scanf("%lf",&A[i]);
-	printf("bµÄÖµ:");
+	printf("bçš„å€¼:");
 	for(i=0;i<n;i++)
 		scanf("%lf",&b[i]);
 	Gauss(A,b,n);
